@@ -1,0 +1,335 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --accent-blue-50: #eef6ff;
+    --accent-blue-200: #c4dcff;
+    --accent-blue-400: #3b82f6;
+    --accent-blue-500: #2563eb;
+    --accent-green-50: #edfdf5;
+    --accent-green-200: #b5e7d2;
+    --accent-green-400: #22c38c;
+    --surface-base: #f3f6fb;
+    --surface-card: rgba(255, 255, 255, 0.94);
+    --surface-divider: rgba(148, 163, 184, 0.25);
+    --surface-dark-base: #111827;
+    --surface-dark-card: rgba(30, 41, 59, 0.9);
+    --surface-dark-divider: rgba(71, 85, 105, 0.42);
+    --scroll-thumb: rgba(60, 112, 194, 0.28);
+    --scroll-thumb-hover: rgba(46, 105, 185, 0.6);
+    --scroll-track: rgba(148, 163, 184, 0.15);
+    --text-heading-strong: #1f2937; /* slate-800 */
+    --text-caption-muted: #475569; /* slate-600 */
+    --text-meta: #64748b; /* slate-500 */
+    --text-disabled: rgba(100, 116, 139, 0.7);
+    --text-bubble-primary: #f8fafc; /* slate-50 */
+  }
+
+  body {
+    font-family: "Inter", "SF Pro Text", "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--surface-base);
+    color: theme('colors.slate.900');
+  }
+
+  .dark body {
+    background: var(--surface-dark-base);
+    color: theme('colors.slate.100');
+    --scroll-thumb: rgba(120, 172, 255, 0.32);
+    --scroll-thumb-hover: rgba(130, 182, 255, 0.6);
+    --scroll-track: rgba(71, 85, 105, 0.28);
+    --text-heading-strong: #e2e8f0; /* slate-200 */
+    --text-caption-muted: #94a3b8; /* slate-400 */
+    --text-meta: #94a3b8; /* slate-400 */
+    --text-disabled: rgba(148, 163, 184, 0.65);
+    --text-bubble-primary: #e2e8f0; /* slate-200 */
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scroll-thumb-hover);
+  }
+
+  *::-webkit-scrollbar-thumb:active {
+    background-color: rgba(46, 105, 185, 0.75);
+  }
+
+  .dark *::-webkit-scrollbar-thumb:active {
+    background-color: rgba(140, 192, 255, 0.75);
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+  button:disabled {
+    @apply cursor-not-allowed;
+  }
+  code {
+    word-break: break-word;
+  }
+  .prose table {
+    @apply block overflow-x-auto;
+  }
+  .prose p:first-of-type {
+    @apply mt-0;
+  }
+  .prose p:last-of-type {
+    @apply mb-0;
+  }
+
+  /* Agent Message Code Block Styling */
+  .agent-message .prose pre {
+    @apply !bg-slate-100 !border !border-slate-200 !rounded-lg !text-xs !overflow-x-auto;
+  }
+  /* Add padding to the pre if it does NOT contain a code block, for robustness */
+  .agent-message .prose pre:not(:has(code)) {
+    @apply !p-2;
+  }
+  .agent-message .prose pre.dark {
+    @apply !bg-slate-900 !border-slate-700;
+  }
+  .agent-message .prose code {
+    @apply !text-xs;
+  }
+  /* Apply padding to the code block itself, which is inside the scrollable pre */
+  .agent-message .prose pre .hljs {
+    @apply !bg-transparent !p-2 !block;
+  }
+}
+
+@layer components {
+  .card-muted {
+    background: var(--surface-card);
+    border: 1px solid rgba(148, 163, 184, 0.22);
+    border-radius: theme('borderRadius.xl');
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .dark .card-muted {
+    background: var(--surface-dark-card);
+    border-color: rgba(148, 163, 184, 0.2);
+  }
+
+  .card-muted--interactive:hover {
+    border-color: rgba(37, 99, 235, 0.4);
+  }
+
+  .card-muted--active {
+    border-color: rgba(52, 195, 143, 0.6);
+    background: rgba(52, 195, 143, 0.08);
+  }
+
+
+}
+
+@layer utilities {
+  .bg-surface-base {
+    background-color: var(--surface-base);
+  }
+
+  .bg-surface-card {
+    background-color: var(--surface-card);
+  }
+
+  .border-surface-divider {
+    border-color: var(--surface-divider);
+  }
+
+  .dark .bg-surface-base {
+    background-color: var(--surface-dark-base);
+  }
+
+  .dark .bg-surface-card {
+    background-color: var(--surface-dark-card);
+  }
+
+  .dark .border-surface-divider {
+    border-color: var(--surface-dark-divider);
+  }
+
+  .section-header {
+    border-bottom: 1px solid var(--surface-divider);
+  }
+
+  .dark .section-header {
+    border-bottom-color: var(--surface-dark-divider);
+  }
+
+  .indicator-accent {
+    position: relative;
+  }
+
+  .indicator-accent::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    left: 0;
+    width: 3px;
+    border-radius: 9999px;
+    background: linear-gradient(180deg, var(--accent-blue-400), var(--accent-green-400));
+  }
+
+  @keyframes chat-fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-chat-fade-up {
+    animation: chat-fade-up 0.12s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-chat-fade-up {
+      animation: none;
+    }
+  }
+
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scroll-thumb) transparent;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-track {
+    background: var(--scroll-track);
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb);
+    border-radius: 9999px;
+  }
+
+  .thin-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb-hover);
+  }
+
+  .text-heading-strong {
+    color: var(--text-heading-strong);
+  }
+
+  .text-caption-muted {
+    color: var(--text-caption-muted);
+  }
+
+  .text-meta {
+    color: var(--text-meta);
+  }
+
+  .text-disabled {
+    color: var(--text-disabled);
+  }
+
+  .text-bubble-primary {
+    color: var(--text-bubble-primary);
+  }
+}
+
+/* Custom Polished Toast Theme v2 */
+
+/* Base Toast Container */
+.Vue-Toastification__toast {
+  @apply !relative !p-4 !rounded-lg !shadow-md !flex !items-center !bg-white dark:!bg-slate-800 !text-slate-800 dark:!text-slate-200;
+}
+
+/* The library's container for the icon */
+.Vue-Toastification__icon {
+  @apply !w-6 !h-6 !mr-4 !flex-shrink-0;
+}
+
+/* The main message content */
+.Vue-Toastification__toast-body {
+  @apply !text-sm !font-medium !text-slate-700 dark:!text-slate-300;
+}
+
+/* The 'x' button to close the toast */
+.Vue-Toastification__close-button {
+  @apply !text-slate-400 hover:!text-slate-600 dark:hover:!text-slate-200 !transition-colors;
+}
+
+.Vue-Toastification__toast::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background: linear-gradient(90deg, var(--accent-blue-400), var(--accent-green-400));
+  opacity: 0.75;
+}
+
+/* --- Type-Specific Overrides --- */
+
+/* Success */
+.Vue-Toastification__toast--success {
+  @apply !bg-emerald-50 dark:!bg-emerald-950;
+}
+.Vue-Toastification__toast--success .Vue-Toastification__icon {
+  @apply !text-emerald-500;
+}
+.Vue-Toastification__toast--success .Vue-Toastification__progress-bar {
+  @apply !bg-emerald-500;
+}
+
+/* Error */
+.Vue-Toastification__toast--error {
+  @apply !bg-red-50 dark:!bg-red-950;
+}
+.Vue-Toastification__toast--error .Vue-Toastification__icon {
+  @apply !text-red-500;
+}
+.Vue-Toastification__toast--error .Vue-Toastification__progress-bar {
+  @apply !bg-red-500;
+}
+
+/* Warning */
+.Vue-Toastification__toast--warning {
+  @apply !bg-amber-50 dark:!bg-amber-950;
+}
+.Vue-Toastification__toast--warning .Vue-Toastification__icon {
+  @apply !text-amber-500;
+}
+.Vue-Toastification__toast--warning .Vue-Toastification__progress-bar {
+  @apply !bg-amber-500;
+}
+
+/* Info */
+.Vue-Toastification__toast--info {
+  @apply !bg-sky-50 dark:!bg-sky-950;
+}
+.Vue-Toastification__toast--info .Vue-Toastification__icon {
+  @apply !text-sky-500;
+}
+.Vue-Toastification__toast--info .Vue-Toastification__progress-bar {
+  @apply !bg-sky-500;
+}

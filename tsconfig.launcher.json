@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "rootDir": "src",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src/launcher.ts"]
+}
