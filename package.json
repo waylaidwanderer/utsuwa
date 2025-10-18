@@ -1,6 +1,6 @@
 {
   "name": "@waylaidwanderer/utsuwa",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "publishConfig": {
     "access": "public"
@@ -10,6 +10,16 @@
   },
   "bin": {
     "utsuwa": "./dist/launcher.js"
+  },
+  "files": [
+    "dist",
+    "public",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waylaidwanderer/utsuwa.git"
   },
   "scripts": {
     "dev": "vite",
